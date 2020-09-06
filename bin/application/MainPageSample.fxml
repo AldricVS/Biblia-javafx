@@ -20,6 +20,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
@@ -169,19 +170,16 @@
                                                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                              </padding>
                                           </BorderPane>
-                                          <Label text="Liste des mots clés" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                          <Label text="Liste des mots clés (cliquer pour supprimer)" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                              <GridPane.margin>
                                                 <Insets top="20.0" />
                                              </GridPane.margin>
                                           </Label>
-                                          <ListView fx:id="keywordsListView" editable="true" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                             <opaqueInsets>
-                                                <Insets />
-                                             </opaqueInsets>
+                                          <FlowPane fx:id="keywordsFlowPane" prefHeight="138.0" prefWidth="564.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                              <GridPane.margin>
-                                                <Insets bottom="15.0" left="15.0" right="15.0" top="50.0" />
+                                                <Insets bottom="20.0" left="20.0" right="20.0" top="50.0" />
                                              </GridPane.margin>
-                                          </ListView>
+                                          </FlowPane>
                                        </children>
                                        <padding>
                                           <Insets bottom="20.0" left="20.0" right="30.0" top="20.0" />

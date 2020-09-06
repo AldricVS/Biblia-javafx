@@ -14,6 +14,19 @@
 	-fx-background-color: transparent;
 }
 
+.keyword-button{
+	-fx-background-color: transparent;
+}
+
+.keyword-button:hover{
+	-fx-opacity: 0.5;
+	-fx-cursor: hand;
+}
+
+.keyword-button:hover .text{
+	-fx-strikethrough: true;
+}
+
 .searchButton:hover > ImageView{
 	-fx-opacity: 0.5 ;
 }
