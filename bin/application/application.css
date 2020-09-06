@@ -1,0 +1,28 @@
+.menu-bar .label, .tab-pane{
+	-fx-font-size: 17.0px;
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-color: transparent;
+}
+
+.text-field, .text-area{
+	-fx-font-family: "Calibri";
+}
+
+.searchButton{
+	-fx-background-color: transparent;
+}
+
+.searchButton:hover > ImageView{
+	-fx-opacity: 0.5 ;
+}
+
+ListView{
+	-fx-background-color: transparent;
+	-fx-border-color: transparent;
+}
+
+ComboBox{
+	-fx-font-size: 17.0px;
+}

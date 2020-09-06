@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="bookListAnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="300.0" minWidth="848.0" prefHeight="300.0" prefWidth="848.0" stylesheets="@bookListCellStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="titleLabel" layoutX="15.0" layoutY="33.0" text="Titre" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="33.0">
+         <font>
+            <Font name="Calibri Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="authorLabel" layoutX="34.0" layoutY="73.0" text="Auteur" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="70.0">
+         <font>
+            <Font name="Calibri Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="categoryLabel" layoutX="721.0" layoutY="4.0" minHeight="-Infinity" minWidth="-Infinity" prefWidth="92.0" text="Catégorie" textAlignment="RIGHT" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="4.0">
+         <font>
+            <Font name="Calibri" size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="descriptionLabel" alignment="TOP_LEFT" contentDisplay="TOP" layoutX="67.0" layoutY="110.0" lineSpacing="4.0" prefHeight="96.0" prefWidth="732.0" text="Je suis un texte en plusiers lignes normalement hein mais je suis pas sûr du resultat en fait. Peut-être sera-t'il bien" AnchorPane.topAnchor="110.0">
+         <font>
+            <Font name="Calibri" size="19.0" />
+         </font>
+      </Label>
+      <BorderPane layoutX="-4.0" layoutY="235.0" prefHeight="65.0" prefWidth="854.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <center>
+            <Button fx:id="openButton" alignment="TOP_CENTER" maxHeight="35.0" maxWidth="116.0" minHeight="35.0" minWidth="116.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="116.0" text="Je lis la suite" textAlignment="CENTER" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Calibri" size="18.0" />
+               </font>
+            </Button>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,7 @@
+.button{
+	-fx-background-color: transparent;
+}
+
+.button:hover > .image-view{
+	-fx-opacity: 0.5;
+}
