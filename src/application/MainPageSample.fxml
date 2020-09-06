@@ -175,11 +175,14 @@
                                                 <Insets top="20.0" />
                                              </GridPane.margin>
                                           </Label>
-                                          <FlowPane fx:id="keywordsFlowPane" prefHeight="138.0" prefWidth="564.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                          <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                             <content>
+                                                <FlowPane fx:id="keywordsFlowPane" prefHeight="138.0" prefWidth="564.0" />
+                                             </content>
                                              <GridPane.margin>
                                                 <Insets bottom="20.0" left="20.0" right="20.0" top="50.0" />
                                              </GridPane.margin>
-                                          </FlowPane>
+                                          </ScrollPane>
                                        </children>
                                        <padding>
                                           <Insets bottom="20.0" left="20.0" right="30.0" top="20.0" />
