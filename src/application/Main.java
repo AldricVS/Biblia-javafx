@@ -33,7 +33,6 @@ public class Main extends Application {
 			Scene scene = new Scene(root);
 			primaryStage.setTitle("Bibila");
 			primaryStage.setScene(scene);
-			
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
