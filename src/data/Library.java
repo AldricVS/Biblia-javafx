@@ -48,4 +48,15 @@ public class Library {
 		return bookList;
 	}
 	
+	/**
+	 * Add a new book in the library.<p>
+	 * If this book already exists, nothing is done
+	 * @param book the book to add
+	 */
+	public void addBook(Book book) {
+		if(!bookList.contains(book)) {
+			bookList.add(book);
+		}
+	}
+	
 }

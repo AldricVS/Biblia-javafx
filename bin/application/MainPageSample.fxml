@@ -146,7 +146,7 @@
                                                 <Font name="Calibri" size="18.0" />
                                              </font>
                                           </TextField>
-                                          <TextField fx:id="AuthorTextField" layoutX="30.0" layoutY="30.0" promptText="Auteur" GridPane.valignment="BOTTOM">
+                                          <TextField fx:id="authorTextField" layoutX="30.0" layoutY="30.0" promptText="Auteur" GridPane.valignment="BOTTOM">
                                              <font>
                                                 <Font name="Calibri" size="18.0" />
                                              </font>
@@ -154,15 +154,12 @@
                                                 <Insets bottom="20.0" left="20.0" right="20.0" />
                                              </GridPane.margin>
                                           </TextField>
-                                          <ComboBox fx:id="categoriesComboBox" minWidth="150.0" prefWidth="150.0" promptText="Catégorie" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                          <ComboBox fx:id="categoriesComboBox" minWidth="150.0" prefHeight="38.0" prefWidth="318.0" promptText="Catégorie" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                              <cursor>
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </ComboBox>
                                           <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
-                                             <left>
-                                                <TextField fx:id="keywordTextField" promptText="Mot-clé" BorderPane.alignment="CENTER" />
-                                             </left>
                                              <right>
                                                 <Button fx:id="addKeywordButton" mnemonicParsing="false" onMouseClicked="#addKeywordToListButton" text="Ajouter aux mots-clés" BorderPane.alignment="CENTER">
                                                    <cursor>
@@ -173,6 +170,12 @@
                                              <padding>
                                                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                                              </padding>
+                                             <center>
+                                                <TextField fx:id="keywordTextField" promptText="Mot-clé" BorderPane.alignment="CENTER">
+                                                   <BorderPane.margin>
+                                                      <Insets right="20.0" />
+                                                   </BorderPane.margin></TextField>
+                                             </center>
                                           </BorderPane>
                                           <Label text="Liste des mots clés (cliquer pour supprimer)" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                              <GridPane.margin>
@@ -189,7 +192,7 @@
                                           </ScrollPane>
                                           <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
                                              <center>
-                                                <TextArea prefHeight="367.0" prefWidth="1064.0" promptText="Description" BorderPane.alignment="CENTER">
+                                                <TextArea fx:id="descriptionTextArea" prefHeight="367.0" prefWidth="1064.0" promptText="Description" BorderPane.alignment="CENTER">
                                                    <BorderPane.margin>
                                                       <Insets bottom="20.0" left="20.0" right="20.0" top="5.0" />
                                                    </BorderPane.margin>
@@ -198,12 +201,12 @@
                                           </BorderPane>
                                           <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
                                              <left>
-                                                <CheckBox mnemonicParsing="false" text="CheckBox" BorderPane.alignment="CENTER" />
+                                                <CheckBox fx:id="borrowCheckBox" mnemonicParsing="false" onMouseClicked="#toggleBorrowPane" text="Emprunté" BorderPane.alignment="CENTER" />
                                              </left>
                                              <center>
-                                                <BorderPane disable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                <BorderPane fx:id="borrowBorderPane" disable="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                    <top>
-                                                      <TextField promptText="Par" BorderPane.alignment="CENTER">
+                                                      <TextField fx:id="borrowerTextField" promptText="Par" BorderPane.alignment="CENTER">
                                                          <BorderPane.margin>
                                                             <Insets />
                                                          </BorderPane.margin>
@@ -213,7 +216,7 @@
                                                       <Insets left="10.0" />
                                                    </padding>
                                                    <bottom>
-                                                      <DatePicker prefHeight="33.0" prefWidth="423.0" BorderPane.alignment="CENTER" />
+                                                      <DatePicker fx:id="borrowDatePicker" prefHeight="33.0" prefWidth="423.0" promptText="Le" BorderPane.alignment="CENTER" />
                                                    </bottom>
                                                 </BorderPane>
                                              </center>
@@ -221,7 +224,7 @@
                                                 <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                                              </padding>
                                           </BorderPane>
-                                          <Button mnemonicParsing="false" text="Ajouter le livre" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                                          <Button fx:id="addBookButton" mnemonicParsing="false" onMouseClicked="#addNewBook" text="Ajouter le livre" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
                                        </children>
                                        <padding>
                                           <Insets bottom="20.0" left="20.0" right="30.0" top="20.0" />

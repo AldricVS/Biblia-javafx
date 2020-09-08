@@ -81,7 +81,7 @@ public class LibraryManager {
 		}
 
 		// sorting time !
-		Collections.sort(booksFound, new ScoreComparator());
+		Collections.sort(booksFound, new ScoreComparator().reversed());
 
 		// we only want the first 15 elements (if available)
 		BookList bookList = new BookList();
