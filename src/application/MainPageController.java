@@ -3,14 +3,12 @@ package application;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.misc.AlertHelper;
 import application.misc.DateStringConverter;
 import application.misc.NoSelectableModel;
 import application.samples.bookListCell.BookListViewCell;
-import application.samples.keywordListCell.KeywordListCell;
 import data.Book;
 import data.BookList;
 import data.Categories;
@@ -23,24 +21,22 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.FocusModel;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import process.helpers.FileHelper;
 import process.managers.LibraryManager;
 
 /**
@@ -51,6 +47,14 @@ import process.managers.LibraryManager;
 public class MainPageController implements Initializable {
 
 	/* =======Attributes======= */
+	
+	//ALL PAGES
+	@FXML
+	private TabPane tabPane;
+	@FXML
+	private Tab addBookTabPane;
+	@FXML
+	private Tab searchTabPane;
 
 	// SEARCH PAGE
 	@FXML
@@ -93,14 +97,16 @@ public class MainPageController implements Initializable {
 
 	/* =======Initialization======= */
 
-	public MainPageController() {
-		// TODO Auto-generated constructor stub
-	}
-
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		//listener to remove all book searched if user switch to the add book tab
+		tabPane.getSelectionModel().selectedItemProperty().addListener((observableValue, oldTab, newTab) -> {
+			if(oldTab == searchTabPane) {
+				clearSearchPane();
+			}
+		});
+		
 		initCategoriesComboBox();
-
 		// init books list view
 		bookObservaleList = FXCollections.observableArrayList();
 		booksListView.setSelectionModel(new NoSelectableModel<Book>());
@@ -224,6 +230,7 @@ public class MainPageController implements Initializable {
 			
 			/*If we don't have any error, we can create the book and store him*/
 			if(error.isEmpty()) {
+				// TODO add borrow properties
 				Book book = new Book(titleString, authorString, category, keywords, description /*,isBorrowPaneToggled(), borrower, borrowDate*/);
 				Library.getInstance().addBook(book);
 				AlertHelper.showInformationAlert("Ajouté !", "Le livre a été ajouté avec succès", null);
@@ -274,6 +281,14 @@ public class MainPageController implements Initializable {
 	}
 
 	/* ======Misc Private Methods====== */
+	
+	private void clearSearchPane() {
+		//remove all books from listview
+		booksListView.setItems(null);
+		bookObservaleList.clear();
+		//and clear searchbar
+		searchBar.setText("");
+	}
 
 	private void addKeywordButton(String keyword) {
 		Button button = new Button(keyword);

@@ -57,9 +57,9 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
       </MenuBar>
-      <TabPane layoutY="25.0" prefHeight="722.0" prefWidth="1200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="34.0">
+      <TabPane fx:id="tabPane" layoutY="25.0" prefHeight="722.0" prefWidth="1200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="34.0">
         <tabs>
-          <Tab text="Rechercher">
+          <Tab fx:id="searchTabPane" text="Rechercher">
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
@@ -118,7 +118,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="Ajouter un livre">
+            <Tab fx:id="addBookTabPane" text="Ajouter un livre">
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="1198.0">
                      <children>
