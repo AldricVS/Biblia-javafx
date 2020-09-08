@@ -1,0 +1,12 @@
+.img-button{
+	-fx-background-color: null;
+}
+
+.img-button:hover{
+	-fx-cursor: hand;
+}
+
+.img-button:hover .image-view{
+	-fx-opacity: 0.5;
+	
+}

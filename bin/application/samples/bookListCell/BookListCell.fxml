@@ -18,7 +18,7 @@
             <Font name="Calibri Bold" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="categoryLabel" layoutX="721.0" layoutY="4.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="177.0" text="Catégorie" textAlignment="RIGHT" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="4.0">
+      <Label fx:id="categoryLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="631.0" layoutY="4.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="177.0" text="Catégorie" textAlignment="RIGHT" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="4.0">
          <font>
             <Font name="Calibri" size="17.0" />
          </font>
