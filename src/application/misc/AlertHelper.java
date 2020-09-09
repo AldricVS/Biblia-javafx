@@ -3,17 +3,23 @@
  */
 package application.misc;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import data.Categories;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.GridPane;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 
 /**
  * Class used to create alerts easily
@@ -123,23 +129,25 @@ public class AlertHelper {
 	
 	/**
 	 * Ask to user in a new window which Category he wants to choose.
+	 * @param title the title of the pop-up window
+	 * @param header the header of the pop-up window (it will be dispalyed bigger than content) 
+	 * @param content the content of the window. 
+	 * @param oldCategory the old category
 	 * @return the category the user choose, or {@code null} if no category choosen.
 	 */
-	public static void showCategorySelectionDialog() {
-		ChoiceDialog<String> choiceDialog = new ChoiceDialog<>();
-		choiceDialog.showingProperty().addListener((ov, b, b1) -> {
-		    if (b1) {
-		        choiceDialog.setContentText("");
-		    }else {
-		        choiceDialog.setContentText(null);
-		    }
-
-		    //or 
-		    if (b1) {
-		        Node comboBox = choiceDialog.getDialogPane().lookup(".combo-box");
-		        comboBox.requestFocus();
-		    }
-		});
+	public static Categories showCategorySelectionDialog(String title, String header, String content, Categories oldCategory) {
+		List<Categories> categories = Arrays.asList(Categories.values());
+		ChoiceDialog<Categories> choiceDialog = new ChoiceDialog<>(oldCategory, categories);
+		choiceDialog.setTitle(title);
+		choiceDialog.setHeaderText(header);
+		choiceDialog.setContentText(content);
+		
+		Optional<Categories> answer = choiceDialog.showAndWait();
+		if(answer.isPresent()) {
+			return answer.get();
+		}else {
+			return oldCategory;
+		}
 	}
 	
 	/**
@@ -156,6 +164,45 @@ public class AlertHelper {
 		dialog.setTitle(title);
 		dialog.setHeaderText(header);
 		dialog.setContentText(content);
+		
+		//get the new text from the user
+		Optional<String> answer = dialog.showAndWait();
+		if(answer.isPresent()) {
+			return answer.get();
+		}
+		//if nothing is written or nothing has changed, don't change the text returned
+		return oldText;
+	}
+	
+	/**
+	 * Ask to user to replace a text contained in a text area with another one
+	 * @param title the title of the pop-up window
+	 * @param header the header of the pop-up window (it will be dispalyed bigger than content) 
+	 * @param oldText the text to replace
+	 * @return what user wrote, or oldText if nothing is written
+	 */
+	public static String showAreaTextInputDialog(String title, String header, String oldText) {
+		//set the text dialog with the previous text already written
+		Dialog<String> dialog = new Dialog<String>();
+		dialog.setTitle(title);
+		dialog.setHeaderText(header);
+		
+		GridPane gridPane = new GridPane();
+		gridPane.setPadding(new Insets(20));
+		
+		TextArea textArea = new TextArea(oldText);
+		textArea.setEditable(true);
+		textArea.setWrapText(true);
+		textArea.setMaxWidth(Double.MAX_VALUE);
+		textArea.setMaxHeight(Double.MAX_VALUE);
+		textArea.setPadding(new Insets(0, 0, 20, 0));
+		
+		
+		gridPane.add(textArea, 0, 0, 2, 1);
+		gridPane.add(new Button("Changer"), 0, 1);
+		gridPane.add(new Button("Annuler"), 1, 1);
+		
+		dialog.getDialogPane().setContent(gridPane);
 		
 		//get the new text from the user
 		Optional<String> answer = dialog.showAndWait();
