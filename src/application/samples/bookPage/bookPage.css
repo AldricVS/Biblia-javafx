@@ -1,3 +1,7 @@
+*{
+	-fx-font-family: "Calibri";
+}
+
 .img-button{
 	-fx-background-color: null;
 }
@@ -9,4 +13,28 @@
 .img-button:hover .image-view{
 	-fx-opacity: 0.5;
 	
+}
+
+/*remove all decoration for text area*/
+.text-area-no-decoration {
+    -fx-background-insets: 0;
+    -fx-background-color: transparent;
+}
+
+.text-area-no-decoration .content {
+    -fx-background-color: transparent;
+}
+
+.text-area-no-decoration:focused .content {
+    -fx-background-color: transparent;
+}
+
+.text-area-no-decoration:focused {
+    -fx-highlight-fill: #7ecfff;
+}
+
+.text-area-no-decoration .content {
+    -fx-padding: 10px;
+    -fx-text-fill: gray;
+    -fx-highlight-fill: #7ecfff;
 }
