@@ -5,8 +5,14 @@ package application.misc;
 
 import java.util.Optional;
 
+import data.Categories;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
 
 /**
@@ -113,6 +119,51 @@ public class AlertHelper {
 		Optional<ButtonType> answer = alert.showAndWait();
 		
 		return answer.get() == BUTTON_TYPE_OUI;
+	}
+	
+	/**
+	 * Ask to user in a new window which Category he wants to choose.
+	 * @return the category the user choose, or {@code null} if no category choosen.
+	 */
+	public static void showCategorySelectionDialog() {
+		ChoiceDialog<String> choiceDialog = new ChoiceDialog<>();
+		choiceDialog.showingProperty().addListener((ov, b, b1) -> {
+		    if (b1) {
+		        choiceDialog.setContentText("");
+		    }else {
+		        choiceDialog.setContentText(null);
+		    }
+
+		    //or 
+		    if (b1) {
+		        Node comboBox = choiceDialog.getDialogPane().lookup(".combo-box");
+		        comboBox.requestFocus();
+		    }
+		});
+	}
+	
+	/**
+	 * Ask to user to replace a text with another one
+	 * @param title the title of the pop-up window
+	 * @param header the header of the pop-up window (it will be dispalyed bigger than content) 
+	 * @param content the content of the window. 
+	 * @param oldText the text to replace
+	 * @return what user wrote, or oldText if nothing is written
+	 */
+	public static String showTextInputDialog(String title, String header, String content, String oldText) {
+		//set the text dialog with the previous text already written
+		TextInputDialog dialog = new TextInputDialog(oldText);
+		dialog.setTitle(title);
+		dialog.setHeaderText(header);
+		dialog.setContentText(content);
+		
+		//get the new text from the user
+		Optional<String> answer = dialog.showAndWait();
+		if(answer.isPresent()) {
+			return answer.get();
+		}
+		//if nothing is written or nothing has changed, don't change the text returned
+		return oldText;
 	}
 	
 }

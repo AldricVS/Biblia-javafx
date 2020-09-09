@@ -5,22 +5,28 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.misc.AlertHelper;
+import application.samples.bookPage.BookPageController;
 import data.Book;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * Implementation of Book display in a listview
  * @author Aldric Vitali Silvestre
  * @see Book
  */
-public class BookListViewCell extends ListCell<Book> implements Initializable{
+public class BookListViewCellController extends ListCell<Book> implements Initializable{
 
 	@FXML
 	private Label titleLabel;
@@ -75,10 +81,19 @@ public class BookListViewCell extends ListCell<Book> implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		openButton.setOnAction(event -> {
-			AlertHelper.showInformationAlert("Test", "Ceci est le boutton avec ce livre", book.toString());
+			try {
+				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("./../bookPage/bookPage.fxml"));
+				Parent parent = (Parent) fxmlLoader.load();
+				BookPageController bookPageController = fxmlLoader.getController();
+				bookPageController.initData(book);
+				Stage stage = new Stage();
+				stage.initModality(Modality.APPLICATION_MODAL);
+				stage.setTitle("Page du livre " + book.getTitle());
+				stage.setScene(new Scene(parent));
+				stage.show();
+			}catch(IOException e) {
+				throw new RuntimeException("Error while loading book window\n" + e);
+			}
 		});
 	}
-	
-	
-	
 }

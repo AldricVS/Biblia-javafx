@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1200.0" stylesheets="@bookPage.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1200.0" stylesheets="@bookPage.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.samples.bookPage.BookPageController">
    <children>
       <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
@@ -47,7 +47,7 @@
                                     </HBox>
                                  </top>
                                  <center>
-                                    <TextArea fx:id="descriptionTextArea" prefHeight="200.0" prefWidth="200.0" styleClass="text-area-no-decoration" BorderPane.alignment="CENTER">
+                                    <TextArea fx:id="descriptionTextArea" prefHeight="200.0" prefWidth="200.0" styleClass="text-area-no-decoration" wrapText="true" BorderPane.alignment="CENTER">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
@@ -84,7 +84,7 @@
                                     </HBox>
                                  </top>
                                  <center>
-                                    <TextArea fx:id="keywordsTextArea" prefHeight="200.0" prefWidth="200.0" styleClass="text-area-no-decoration" BorderPane.alignment="CENTER">
+                                    <TextArea fx:id="keywordsTextArea" prefHeight="200.0" prefWidth="200.0" styleClass="text-area-no-decoration" wrapText="true" BorderPane.alignment="CENTER">
                                        <font>
                                           <Font size="15.0" />
                                        </font>

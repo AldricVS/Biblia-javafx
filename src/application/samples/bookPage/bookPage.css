@@ -1,4 +1,4 @@
-*{
+.root{
 	-fx-font-family: "Calibri";
 }
 
@@ -12,7 +12,6 @@
 
 .img-button:hover .image-view{
 	-fx-opacity: 0.5;
-	
 }
 
 /*remove all decoration for text area*/

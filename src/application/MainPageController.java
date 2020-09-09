@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 import application.misc.AlertHelper;
 import application.misc.DateStringConverter;
 import application.misc.NoSelectableModel;
-import application.samples.bookListCell.BookListViewCell;
+import application.samples.bookListCell.BookListViewCellController;
 import data.Book;
 import data.BookList;
 import data.Categories;
@@ -110,7 +110,7 @@ public class MainPageController implements Initializable {
 		// init books list view
 		bookObservaleList = FXCollections.observableArrayList();
 		booksListView.setSelectionModel(new NoSelectableModel<Book>());
-		booksListView.setCellFactory(bookListView -> new BookListViewCell());
+		booksListView.setCellFactory(bookListView -> new BookListViewCellController());
 
 		keywordTextField.setOnKeyPressed(event -> {
 			if (event.getCode().equals(KeyCode.ENTER)) {
