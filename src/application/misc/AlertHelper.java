@@ -183,26 +183,8 @@ public class AlertHelper {
 	 */
 	public static String showAreaTextInputDialog(String title, String header, String oldText) {
 		//set the text dialog with the previous text already written
-		Dialog<String> dialog = new Dialog<String>();
-		dialog.setTitle(title);
-		dialog.setHeaderText(header);
+		Dialog dialog = new Dialog();
 		
-		GridPane gridPane = new GridPane();
-		gridPane.setPadding(new Insets(20));
-		
-		TextArea textArea = new TextArea(oldText);
-		textArea.setEditable(true);
-		textArea.setWrapText(true);
-		textArea.setMaxWidth(Double.MAX_VALUE);
-		textArea.setMaxHeight(Double.MAX_VALUE);
-		textArea.setPadding(new Insets(0, 0, 20, 0));
-		
-		
-		gridPane.add(textArea, 0, 0, 2, 1);
-		gridPane.add(new Button("Changer"), 0, 1);
-		gridPane.add(new Button("Annuler"), 1, 1);
-		
-		dialog.getDialogPane().setContent(gridPane);
 		
 		//get the new text from the user
 		Optional<String> answer = dialog.showAndWait();
