@@ -25,6 +25,12 @@ public class BookFactory {
 			String categoryString = csvSplit[2];
 			String keywordsString = csvSplit[3];
 			String descriptionString = csvSplit[4];
+			String isBorrowedString = csvSplit[5];
+			String borrowerString = csvSplit[6];
+			String borrowDateString = csvSplit[7];
+			
+			//book is boorowed if isBorrowedString is "1"
+			boolean isBorrowed = isBorrowedString.equals("1");
 			
 			//we have to change some fileds to be usable
 			Categories category = Categories.fromValue(categoryString);
@@ -32,24 +38,10 @@ public class BookFactory {
 			descriptionString = descriptionString.replaceAll("</br>", System.lineSeparator());
 			
 			//now, we can create the book
-			return new Book(titleString, authorString, category, keywords, descriptionString);
+			return new Book(titleString, authorString, category, keywords, descriptionString, isBorrowed, borrowerString, borrowDateString);
 			
 		}catch(IndexOutOfBoundsException e) {
 			throw new IllegalArgumentException("Array provided not valid : " + e);
 		}
 	}
-
-	/**
-	 * Create a new book with the exact same attributes values as book
-	 * @param book the book to copy
-	 * @return a fully-referenced new book
-	 */
-	public static Book createBookCopy(Book book) {
-		return new Book(book.getTitle(),
-				book.getAuthor(),
-				book.getCategory(),
-				Arrays.copyOf(book.getKeywords(), book.getKeywords().length),
-				book.getDescription());
-	}
-	
 }

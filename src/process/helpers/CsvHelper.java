@@ -28,7 +28,12 @@ public class CsvHelper {
 	}
 
 	/**
-	 * Get all data in a book and create a new csv formated string.
+	 * Get all data in a book and create a new csv formated string.<p>
+	 * The csv looks like this : 
+	 * <pre>"title","author","category","keyword1;keyword2;...keywordN","description","isBorrowed","borrower","borrowDate"</pre>
+	 * <p>The line breaks in description are replaced by "br" tag.
+	 * <p>Keywords are sparated by ";".
+	 * <p>"isBorrowed" can have 2 values : 0 (false) or 1 (true)
 	 * @param book the book which will be converted
 	 * @return a csv string
 	 */
@@ -39,12 +44,18 @@ public class CsvHelper {
 		String category = book.getCategory().getValue();
 		String keywords = book.getKeywordsOneLine();
 		String description = book.getDescription().replaceAll(System.lineSeparator(), "</br>");
-		return String.format("\"%s\",\"%s\",\"%s\",\"%s\",\"%s\"",
+		String isBorrowed = book.isBorrowed() ? "1" : "0";
+		String borrower = book.getBorrower();
+		String borrowDate = book.getBorrowDate();
+		return String.format("\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\"",
 				title,
 				author,
 				category,
 				keywords,
-				description);
+				description,
+				isBorrowed,
+				borrower,
+				borrowDate);
 	}
 	
 }

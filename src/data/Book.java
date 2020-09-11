@@ -15,13 +15,43 @@ public class Book implements Serializable{
 	private String[] keywords;
 	private String description;
 	
+	//attributes for borrow things
+	private boolean isBorrowed;
+	private String borrower;
+	private String borrowDate;
+	
 	/**
 	 * this is used for sorting results by relevance
 	 */
 	private int relevanceScore = 0;
 	
+	
 	/**
-	 * Create a new book with specified parameters.
+	 * Create a new book with specified parameters
+	 * @param title
+	 * @param author
+	 * @param category
+	 * @param keywords
+	 * @param description
+	 * @param isBorrowed
+	 * @param borrower
+	 * @param borrowDate
+	 */
+	public Book(String title, String author, Categories category, String[] keywords, String description,
+			boolean isBorrowed, String borrower, String borrowDate) {
+		super();
+		this.title = title;
+		this.author = author;
+		this.category = category;
+		this.keywords = keywords;
+		this.description = description;
+		this.isBorrowed = isBorrowed;
+		this.borrower = borrower;
+		this.borrowDate = borrowDate;
+	}
+
+	/**
+	 * Create a new book with specified parameters, and without borrow relatives attributes.
 	 * @param title
 	 * @param author
 	 * @param category
@@ -35,6 +65,9 @@ public class Book implements Serializable{
 		this.category = category;
 		this.keywords = keywords;
 		this.description = description;
+		this.isBorrowed = false;
+		this.borrower = "";
+		this.borrowDate = "";
 	}
 
 	/**
@@ -137,6 +170,48 @@ public class Book implements Serializable{
 	 */
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	/**
+	 * @return the if book is Borrowed
+	 */
+	public boolean isBorrowed() {
+		return isBorrowed;
+	}
+
+	/**
+	 * @return the borrower
+	 */
+	public String getBorrower() {
+		return borrower;
+	}
+
+	/**
+	 * @return the borrowDate
+	 */
+	public String getBorrowDate() {
+		return borrowDate;
+	}
+
+	/**
+	 * @param isBorrowed the isBorrowed to set
+	 */
+	public void setBorrowed(boolean isBorrowed) {
+		this.isBorrowed = isBorrowed;
+	}
+
+	/**
+	 * @param borrower the borrower to set
+	 */
+	public void setBorrower(String borrower) {
+		this.borrower = borrower;
+	}
+
+	/**
+	 * @param borrowDate the borrowDate to set
+	 */
+	public void setBorrowDate(String borrowDate) {
+		this.borrowDate = borrowDate;
 	}
 
 	@Override
