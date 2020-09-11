@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.MainPageController;
 import application.misc.AlertHelper;
 import application.samples.bookPage.BookPageController;
 import data.Book;
@@ -85,11 +86,11 @@ public class BookListViewCellController extends ListCell<Book> implements Initia
 				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("./../bookPage/bookPage.fxml"));
 				Parent parent = (Parent) fxmlLoader.load();
 				BookPageController bookPageController = fxmlLoader.getController();
-				bookPageController.initData(book);
 				Stage stage = new Stage();
 				stage.initModality(Modality.APPLICATION_MODAL);
 				stage.setTitle("Page du livre " + book.getTitle());
 				stage.setScene(new Scene(parent));
+				bookPageController.initData(book, stage);
 				stage.show();
 			}catch(IOException e) {
 				throw new RuntimeException("Error while loading book window\n" + e);

@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import application.misc.AlertHelper;
+import application.misc.AppContext;
 import application.misc.DateStringConverter;
 import application.misc.NoSelectableModel;
 import application.samples.bookListCell.BookListViewCellController;
@@ -47,7 +48,6 @@ import process.managers.LibraryManager;
 public class MainPageController implements Initializable {
 
 	/* =======Attributes======= */
-	
 	//ALL PAGES
 	@FXML
 	private TabPane tabPane;
@@ -66,7 +66,7 @@ public class MainPageController implements Initializable {
 	@FXML
 	private ScrollPane addBookScrollPane;
 
-	private ObservableList<Book> bookObservaleList;
+	private ObservableList<Book> bookObservableList;
 	private BookList bookList;
 
 	// ADD PAGE
@@ -99,6 +99,9 @@ public class MainPageController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		//set the value for appContext
+		AppContext.getInstance().setMainController(this);
+		
 		//listener to remove all book searched if user switch to the add book tab
 		tabPane.getSelectionModel().selectedItemProperty().addListener((observableValue, oldTab, newTab) -> {
 			if(oldTab == searchTabPane) {
@@ -108,7 +111,7 @@ public class MainPageController implements Initializable {
 		
 		initCategoriesComboBox();
 		// init books list view
-		bookObservaleList = FXCollections.observableArrayList();
+		bookObservableList = FXCollections.observableArrayList();
 		booksListView.setSelectionModel(new NoSelectableModel<Book>());
 		booksListView.setCellFactory(bookListView -> new BookListViewCellController());
 
@@ -148,9 +151,9 @@ public class MainPageController implements Initializable {
 
 			bookList = LibraryManager.searchBooks(searchInput);
 			if (bookList.getBookListSize() > 0) {
-				bookObservaleList.clear();
-				bookObservaleList.addAll(bookList.getBooks());
-				booksListView.setItems(bookObservaleList);
+				bookObservableList.clear();
+				bookObservableList.addAll(bookList.getBooks());
+				booksListView.setItems(bookObservableList);
 			} else {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Pas de livres !");
@@ -279,13 +282,30 @@ public class MainPageController implements Initializable {
 			System.exit(0);
 		}
 	}
+	
+	/*=======Misc Public methods=======*/
+	
+	/**
+	 * Permits to refresh the list view. Useful when doing modifications in other pages.
+	 */
+	public void refreshListView() {
+		booksListView.refresh();
+	}
+	
+	/**
+	 * Remove a book from the list view (used by BookPageController when deleting book)
+	 * @param book the book to remove from the list (if exists)
+	 */
+	public void removeBookFromListView(Book book) {
+		booksListView.getItems().remove(book);
+	}
 
-	/* ======Misc Private Methods====== */
+	/*=======Misc Private Methods======*/
 	
 	private void clearSearchPane() {
 		//remove all books from listview
 		booksListView.setItems(null);
-		bookObservaleList.clear();
+		bookObservableList.clear();
 		//and clear searchbar
 		searchBar.setText("");
 	}

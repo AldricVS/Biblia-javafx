@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 
+import application.misc.AppContext;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -28,9 +29,9 @@ public class Main extends Application {
 			primaryStage.setMinWidth(848f);
 			primaryStage.setMinHeight(480f);
 			final FXMLLoader loader = new FXMLLoader(getClass().getResource("MainPageSample.fxml"));
-			
 			AnchorPane root = (AnchorPane) loader.load();
 			Scene scene = new Scene(root);
+			AppContext.getInstance().setMainStage(primaryStage);
 			primaryStage.setTitle("Bibila");
 			primaryStage.setScene(scene);
 			primaryStage.show();

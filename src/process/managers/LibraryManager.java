@@ -157,4 +157,13 @@ public class LibraryManager {
 		}
 
 	}
+
+	/**
+	 * Delete a book from the library book list 
+	 * @param book the book to remove
+	 * @return if book was in the list
+	 */
+	public static boolean deleteBook(Book book) {
+		return Library.getInstance().getBookList().remove(book);
+	}
 }
