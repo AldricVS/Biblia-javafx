@@ -5,15 +5,18 @@ package application.samples.dialogs.textAreaDialog;
 
 import java.io.IOException;
 
+import application.misc.AlertHelper;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -43,9 +46,9 @@ public class TextAreaDialog extends Dialog<String> {
 		contentLabel.setFont(new Font("Calibri", 17));
 		
 		TextArea textArea = new TextArea(oldText);
-		Button submitButton = new Button("Modifier");
-		Button cancelButton = new Button("Annuler");
-
+		textArea.setCache(false);
+		
+		//create the main panel of the pop-up and set all size values
 		AnchorPane anchorPane = new AnchorPane();
 		anchorPane.setPrefHeight(HEIGHT);
 		anchorPane.setPrefWidth(WIDTH);
@@ -53,24 +56,47 @@ public class TextAreaDialog extends Dialog<String> {
 		anchorPane.setMinWidth(WIDTH);
 		anchorPane.setMaxHeight(HEIGHT);
 		anchorPane.setMaxWidth(WIDTH);
-		
-		HBox hbox = new HBox(50);
-		hbox.setAlignment(Pos.CENTER);
-		hbox.getChildren().add(submitButton);
-		hbox.getChildren().add(cancelButton);
 
+		//inside this we have a border pane so the content label is at top and
+		//text area get the rest
 		BorderPane borderPane = new BorderPane();
 		borderPane.setPadding(new Insets(20));
 		borderPane.setTop(contentLabel);
 		borderPane.setCenter(textArea);
-		borderPane.setBottom(hbox);
 
+		//we define all margins and add border pane to anchor
 		Insets insets = new Insets(20, 10, 20, 10);
-		BorderPane.setMargin(hbox, insets);
 		BorderPane.setMargin(textArea, insets);
 		BorderPane.setMargin(contentLabel, insets);
+		anchorPane.getChildren().add(borderPane);
+		AnchorPane.setBottomAnchor(borderPane, 0d);
+		AnchorPane.setTopAnchor(borderPane, 0d);
+		AnchorPane.setRightAnchor(borderPane, 0d);
+		AnchorPane.setLeftAnchor(borderPane, 0d);
 		
+		getDialogPane().setContent(anchorPane);
+		setTitle(title);
 		
+		getDialogPane().setStyle("-fx-font-size:18.0px;-fx-font-family:\"Calibri\"");
+		
+		//finally, we have the button management
+		ButtonType buttonCancel = new ButtonType("Annuler", ButtonData.CANCEL_CLOSE);
+		ButtonType buttonSubmit = new ButtonType("Modifier", ButtonData.APPLY);
+		getDialogPane().getButtonTypes().addAll(buttonSubmit,buttonCancel);
+		
+		//and this is the converter buttonType => string (the one in textArea)
+		setResultConverter(buttonType -> {
+			if(buttonType.getButtonData().equals(buttonSubmit.getButtonData())) {
+				//little warning for user
+				if(AlertHelper.showYesNoAlert("Modifier", "Voulez-vous vraiment modifier la description ?", null)) {
+					String textInTextArea = textArea.getText();
+					if(!textInTextArea.trim().isEmpty()) {
+						return textInTextArea;
+					}
+				}
+			}
+			return null;
+		});
 	}
 
 	/**

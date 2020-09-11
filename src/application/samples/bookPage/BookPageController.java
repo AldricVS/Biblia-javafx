@@ -5,10 +5,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.StringJoiner;
 
 import application.misc.AlertHelper;
+import application.samples.dialogs.textAreaDialog.TextAreaDialog;
 import data.Book;
 import data.Categories;
 import javafx.event.ActionEvent;
@@ -103,8 +105,12 @@ public class BookPageController implements Initializable {
 	// Event Listener on Button[#modifyDescriptionButton].onAction
 	@FXML
 	public void modifyDescription(ActionEvent event) {
-		String result = AlertHelper.showAreaTextInputDialog("Modifier la description", "Quelle est la nouvelle description du livre ?", descriptionTextArea.getText());
-		descriptionTextArea.setText(result);
+		TextAreaDialog textAreaDialog = new TextAreaDialog("Modifier la description", "Quelle-est la nouvelle description ?", descriptionTextArea.getText());
+		Optional<String> result = textAreaDialog.showAndWait();
+		if(result.isPresent()) {
+			String newDescription = result.get();
+			descriptionTextArea.setText(newDescription);
+		}
 	}
 
 	// Event Listener on Button[#modifyKeywordsButton].onAction
