@@ -133,7 +133,7 @@ public class BookPageController implements Initializable {
 	// Event Listener on Button[#modifyKeywordsButton].onAction
 	@FXML
 	public void modifyKeywords(ActionEvent event) {
-		KeywordsDialog keywordsDialog = new KeywordsDialog("Modifier les mots-clés");
+		KeywordsDialog keywordsDialog = new KeywordsDialog("Modifier les mots-clés", keywordsTextArea.getText());
 		Optional<String> result = keywordsDialog.showAndWait();
 		if(result.isPresent()) {
 			keywordsTextArea.setText(result.get());

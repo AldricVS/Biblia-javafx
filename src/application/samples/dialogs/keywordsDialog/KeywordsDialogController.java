@@ -51,7 +51,7 @@ public class KeywordsDialogController {
 		button.getStyleClass().add("keyword-button");
 		button.setOnAction(event -> {
 			if (AlertHelper.showYesNoAlert("Supprimer le mot-clé ?",
-					"Voulez-vous vraiment supprimer le mot clé \" +" + button.getText() + "+ \" de la liste ?", null)) {
+					"Voulez-vous vraiment supprimer le mot clé \"" + button.getText() + "\" de la liste ?", null)) {
 				keywordsFlowPane.getChildren().remove(button);
 			}
 		});
@@ -65,6 +65,8 @@ public class KeywordsDialogController {
 	 * @param keywords the string containing keywords to add to flowPane
 	 */
 	public void initKeywords(String keywords) {
+		if(keywords == null)
+			return;
 		String keywordsArray[] = keywords.split(";");
 		for(int i = 0; i < keywordsArray.length; i++) {
 			Button button = createKeywordButton(keywordsArray[i]);
