@@ -44,6 +44,10 @@ public class CsvHelper {
 		String category = book.getCategory().getValue();
 		String keywords = book.getKeywordsOneLine();
 		String description = book.getDescription().replaceAll(System.lineSeparator(), "</br>");
+		//in case of new book or modified book, we need to change with "\n" too
+ 		//javafx stores linebreaks only with "\n", even on windows (normally, it should be \r\n on windows)
+		description = description.replaceAll("\n", "</br>");
+		System.out.println(description);
 		String isBorrowed = book.isBorrowed() ? "1" : "0";
 		String borrower = book.getBorrower();
 		String borrowDate = book.getBorrowDate();

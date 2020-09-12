@@ -38,6 +38,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.util.StringConverter;
 import process.managers.LibraryManager;
 
 /**
@@ -228,7 +229,9 @@ public class MainPageController implements Initializable {
 				if (borrower.isEmpty() || date == null) {
 					error += "La case \"emprunté\" est cochée mais il n'y a pas les informations nécessaires.\n";
 				}else {
-					borrowDate = date.toString();
+					StringConverter<LocalDate> converter = borrowDatePicker.getConverter();
+					LocalDate value = borrowDatePicker.getValue();
+					borrowDate = converter.toString(value);
 				}
 			}
 			

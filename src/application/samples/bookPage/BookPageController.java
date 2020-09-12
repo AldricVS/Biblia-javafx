@@ -128,6 +128,7 @@ public class BookPageController implements Initializable {
 		Optional<String> result = textAreaDialog.showAndWait();
 		if (result.isPresent()) {
 			String newDescription = result.get();
+			System.out.println(newDescription.replaceAll("\n", "</br>"));
 			descriptionTextArea.setText(newDescription);
 		}
 	}
@@ -220,6 +221,7 @@ public class BookPageController implements Initializable {
 			isBorrowed = hm.get(BorrowDialog.FIELD_IS_BORROWED).equals("1");
 			borrower = hm.get(BorrowDialog.FIELD_BORROWER);
 			borrowDate = hm.get(BorrowDialog.FIELD_BORROW_DATE);
+			System.out.println(isBorrowed + " ==> " + borrower + " ==> " + borrowDate);
 			updateBorrowLabel();
 		}
 	}

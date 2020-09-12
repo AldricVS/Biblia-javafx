@@ -30,7 +30,7 @@ public class DateStringConverter extends StringConverter<LocalDate> {
 		if (localDate != null) {
 			return dateTimeFormatter.format(localDate);
 		}
-		return null;
+		return "";
 	}
 
 }
