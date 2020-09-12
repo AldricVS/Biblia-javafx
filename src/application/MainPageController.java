@@ -221,7 +221,8 @@ public class MainPageController implements Initializable {
 				error += "Le Champ \"description\" n'est pas renseigné.\n";
 			}
 			String borrower = "", borrowDate = "";
-			if(isBorrowPaneToggled()) {
+			boolean isBookBorrowed = isBorrowPaneToggled();
+			if(isBookBorrowed) {
 				borrower = borrowerTextField.getText();
 				LocalDate date = borrowDatePicker.getValue();
 				if (borrower.isEmpty() || date == null) {
@@ -234,7 +235,7 @@ public class MainPageController implements Initializable {
 			/*If we don't have any error, we can create the book and store him*/
 			if(error.isEmpty()) {
 				// TODO add borrow properties
-				Book book = new Book(titleString, authorString, category, keywords, description /*,isBorrowPaneToggled(), borrower, borrowDate*/);
+				Book book = new Book(titleString, authorString, category, keywords, description, isBookBorrowed, borrower, borrowDate);
 				Library.getInstance().addBook(book);
 				AlertHelper.showInformationAlert("Ajouté !", "Le livre a été ajouté avec succès", null);
 			}else {
