@@ -3,7 +3,9 @@ package data;
 public enum Categories {
 	NATUROPATHIE("Naturopathie"),
 	ROMAN("Roman"),
-	MAGAZINE("Magazine");
+	MAGAZINE("Magazine"),
+	CUISINE("Cuisine"),
+	JARDINAGE("Jardinage");
 	
 	private String value;
 	Categories(String value) {
