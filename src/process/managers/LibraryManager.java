@@ -94,6 +94,20 @@ public class LibraryManager {
 		}
 		return bookList;
 	}
+	
+	/**
+	 * Permits to retrieve all books that are in "borrowed" state from the library
+	 * @return all books borrowed in a bookList
+	 */
+	public static BookList getAllBorrowedBooks() {
+		BookList bookList = new BookList();
+		for (Book book : Library.getInstance().getBookList()) {
+			if(book.isBorrowed()) {
+				bookList.addBook(book);
+			}
+		}
+		return bookList;
+	}
 
 	public static void saveLibrary() throws IOException {
 		FileHelper fh = new FileHelper();
@@ -110,6 +124,11 @@ public class LibraryManager {
 	 * @return the total score
 	 */
 	private static int scoreInString(String stringToSearch, ArrayList<String> searchWords, int scoreToAdd) {
+		//if word is only one letter, we don't care of it
+		if(stringToSearch.length() == 1) {
+			return 0;
+		}
+		
 		int score = 0;
 		String lowerCaseString = stringToSearch.toLowerCase();
 		for (String word : searchWords) {

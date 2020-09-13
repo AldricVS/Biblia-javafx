@@ -181,7 +181,9 @@ public class BookPageController implements Initializable {
 			if (answer == AlertHelper.CHOICE_YES) {
 				modifyBook();
 				//don't forget to refresh the previous page
-				AppContext.getInstance().getMainController().refreshListView();
+				AppContext instance = AppContext.getInstance();
+				instance.getMainController().refreshListView();
+				instance.setSaveNeeded(true);
 			}
 			stage.close();
 		}

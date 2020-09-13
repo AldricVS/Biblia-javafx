@@ -5,6 +5,8 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import org.omg.CORBA.PRIVATE_MEMBER;
+
 import application.misc.AlertHelper;
 import application.misc.AppContext;
 import application.misc.DateStringConverter;
@@ -38,18 +40,22 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import process.managers.LibraryManager;
 
 /**
  * Controller for the main panel of the app.
+ * <p>
+ * You must call {@link MainPageController#initStage} in order to add all
+ * features, such as close window verification.
  * 
  * @author Aldric Vitali Silvestre
  */
 public class MainPageController implements Initializable {
 
 	/* =======Attributes======= */
-	//ALL PAGES
+	// ALL PAGES
 	@FXML
 	private TabPane tabPane;
 	@FXML
@@ -100,16 +106,16 @@ public class MainPageController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		//set the value for appContext
+		// set the value for appContext
 		AppContext.getInstance().setMainController(this);
-		
-		//listener to remove all book searched if user switch to the add book tab
+
+		// listener to remove all book searched if user switch to the add book tab
 		tabPane.getSelectionModel().selectedItemProperty().addListener((observableValue, oldTab, newTab) -> {
-			if(oldTab == searchTabPane) {
+			if (oldTab == searchTabPane) {
 				clearSearchPane();
 			}
 		});
-		
+
 		initCategoriesComboBox();
 		// init books list view
 		bookObservableList = FXCollections.observableArrayList();
@@ -122,6 +128,36 @@ public class MainPageController implements Initializable {
 			}
 		});
 		borrowDatePicker.setConverter(new DateStringConverter());
+	}
+
+	/**
+	 * link the stage with the controller, in order to use full potential of window
+	 * event handling
+	 * 
+	 * @param stage the main stage of the application
+	 */
+	public void initStage(Stage stage) {
+		stage.setOnCloseRequest(windowEvent -> {
+			if (AppContext.getInstance().isSaveNeeded()) {
+				int answer = AlertHelper.showYesNoCancelAlert("Sauvegarder ?",
+						"Voulez-vous sauvegarder avant de quiter ?",
+						"Cela serait dommage de perdre toutes les modifications.");
+
+				if (answer == AlertHelper.CHOICE_YES) {
+					if (saveLibrary(null)) {
+						Platform.exit();
+						System.exit(0);
+					}
+				} else if (answer == AlertHelper.CHOICE_NO) {
+					Platform.exit();
+					System.exit(0);
+				} else {
+					// here, user click on "cancel" button, so we have to keep window open
+					windowEvent.consume();
+				}
+			}
+		});
+
 	}
 
 	private void initCategoriesComboBox() {
@@ -151,7 +187,7 @@ public class MainPageController implements Initializable {
 		if (!searchInput.isEmpty()) {
 
 			bookList = LibraryManager.searchBooks(searchInput);
-			if (bookList.getBookListSize() > 0) {
+			if (bookList.getSize() > 0) {
 				bookObservableList.clear();
 				bookObservableList.addAll(bookList.getBooks());
 				booksListView.setItems(bookObservableList);
@@ -167,11 +203,15 @@ public class MainPageController implements Initializable {
 
 	@FXML
 	public void listBorrowedBooks(MouseEvent e) {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Euhhh...");
-		alert.setHeaderText("Cette fonctionnalité n'est pas encore implémentée, donc...");
-		alert.setContentText(null);
-		alert.showAndWait();
+		bookList = LibraryManager.getAllBorrowedBooks();
+		if (bookList.isEmpty()) {
+			AlertHelper.showErrorAlert("Pas de livres empruntés", "Il n'y a aucun livre emprunté dans la bibliothèque.",
+					"Pour l'instant...");
+		} else {
+			bookObservableList.clear();
+			bookObservableList.addAll(bookList.getBooks());
+			booksListView.setItems(bookObservableList);
+		}
 	}
 
 	// ADD PAGE
@@ -187,7 +227,7 @@ public class MainPageController implements Initializable {
 			keywordTextField.setText("");
 		}
 	}
-	
+
 	@FXML
 	public void toggleBorrowPane(MouseEvent e) {
 		borrowBorderPane.setDisable(!isBorrowPaneToggled());
@@ -195,56 +235,63 @@ public class MainPageController implements Initializable {
 
 	@FXML
 	public void addNewBook(MouseEvent e) {
-		if(AlertHelper.showYesNoAlert("Ajouter ?", "Voulez-vous vraiment ajouter ce livre à la liste ?", "N'oubliez pas de sauvegarder ensuite")) {
-			/*First, we gather all data and check if all is here*/
-			String error = "";//empty string which will contain all errors
+		if (AlertHelper.showYesNoAlert("Ajouter ?", "Voulez-vous vraiment ajouter ce livre à la liste ?",
+				"N'oubliez pas de sauvegarder ensuite")) {
+			/* First, we gather all data and check if all is here */
+			String error = "";// empty string which will contain all errors
 			String titleString = titleTextField.getText();
-			if(titleString.isEmpty()) {
+			if (titleString.isEmpty()) {
 				error += "Le Champ \"titre\" n'est pas renseigné.\n";
 			}
 			String authorString = authorTextField.getText();
-			if(authorString.isEmpty()) {
+			if (authorString.isEmpty()) {
 				error += "Le Champ \"auteur\" n'est pas renseigné.\n";
 			}
-			if(categoriesComboBox.getSelectionModel().isEmpty()) {
+			if (categoriesComboBox.getSelectionModel().isEmpty()) {
 				error += "La catégorie n'est pas renseignée.\n";
 			}
 			Categories category = categoriesComboBox.getValue();
-			if(categoriesComboBox.getSelectionModel().isEmpty()) {
+			if (categoriesComboBox.getSelectionModel().isEmpty()) {
 				error += "La catégorie n'est pas renseignée.\n";
 			}
 			String keywords[] = getAllKeywords();
-			if(keywords.length == 0) {
+			if (keywords.length == 0) {
 				error += "Un mot-clé doit au moins être ajouté.\n";
- 			}
+			}
 			String description = descriptionTextArea.getText();
-			if(description.isEmpty()) {
+			if (description.isEmpty()) {
 				error += "Le Champ \"description\" n'est pas renseigné.\n";
 			}
 			String borrower = "", borrowDate = "";
 			boolean isBookBorrowed = isBorrowPaneToggled();
-			if(isBookBorrowed) {
+			if (isBookBorrowed) {
 				borrower = borrowerTextField.getText();
 				LocalDate date = borrowDatePicker.getValue();
 				if (borrower.isEmpty() || date == null) {
 					error += "La case \"emprunté\" est cochée mais il n'y a pas les informations nécessaires.\n";
-				}else {
+				} else {
 					StringConverter<LocalDate> converter = borrowDatePicker.getConverter();
 					LocalDate value = borrowDatePicker.getValue();
 					borrowDate = converter.toString(value);
 				}
 			}
-			
-			/*If we don't have any error, we can create the book and store him*/
-			if(error.isEmpty()) {
-				// TODO add borrow properties
-				Book book = new Book(titleString, authorString, category, keywords, description, isBookBorrowed, borrower, borrowDate);
+
+			/* If we don't have any error, we can create the book and store him */
+			if (error.isEmpty()) {
+				Book book = new Book(titleString, authorString, category, keywords, description, isBookBorrowed,
+						borrower, borrowDate);
 				Library.getInstance().addBook(book);
 				AlertHelper.showInformationAlert("Ajouté !", "Le livre a été ajouté avec succès", null);
-			}else {
-				AlertHelper.showErrorAlert("Champs manquants", "Certaines informations importantes sont manquantes.", error);
+				
+				AppContext.getInstance().setSaveNeeded(true);
+				
+				// we also want to empty all fields
+				clearAllSearchFields();
+			} else {
+				AlertHelper.showErrorAlert("Champs manquants", "Certaines informations importantes sont manquantes.",
+						error);
 			}
-			
+
 		}
 	}
 
@@ -252,8 +299,8 @@ public class MainPageController implements Initializable {
 		ObservableList<Node> buttons = keywordsFlowPane.getChildren();
 		int numberKeywords = buttons.size();
 		String keywords[] = new String[numberKeywords];
-		for(int i = 0; i < numberKeywords; i++){
-			keywords[i] = ((Button)buttons.get(i)).getText();
+		for (int i = 0; i < numberKeywords; i++) {
+			keywords[i] = ((Button) buttons.get(i)).getText();
 		}
 		return keywords;
 	}
@@ -261,9 +308,11 @@ public class MainPageController implements Initializable {
 	// MENU BAR
 	@FXML
 	public boolean saveLibrary(ActionEvent e) {
+		AppContext.getInstance().setSaveNeeded(false);
 		try {
 			LibraryManager.saveLibrary();
-			AlertHelper.showInformationAlert("Sauvegarde réussie", "La bibliothèque a été sauvegardée avec succès !", null);
+			AlertHelper.showInformationAlert("Sauvegarde réussie", "La bibliothèque a été sauvegardée avec succès !",
+					null);
 			return true;
 		} catch (IOException e1) {
 			AlertHelper.showErrorAlert("Errue !", "Une erreur a eu lieu durant la sauvegarde.", "Raison : " + e1);
@@ -273,61 +322,80 @@ public class MainPageController implements Initializable {
 
 	@FXML
 	public void quitApp(ActionEvent e) {
-		
-		int answer = AlertHelper.showYesNoCancelAlert("Sauvegarder ?", "Voulez-vous sauvegarder avant de quiter ?", null);
-		
-		if (answer == AlertHelper.CHOICE_YES) {
-			if (saveLibrary(null)) {
+		if (AppContext.getInstance().isSaveNeeded()) {
+			int answer = AlertHelper.showYesNoCancelAlert("Sauvegarder ?", "Voulez-vous sauvegarder avant de quiter ?",
+					null);
+
+			if (answer == AlertHelper.CHOICE_YES) {
+				if (saveLibrary(null)) {
+					Platform.exit();
+					System.exit(0);
+				}
+			} else if (answer == AlertHelper.CHOICE_NO) {
 				Platform.exit();
 				System.exit(0);
 			}
-		} else if (answer == AlertHelper.CHOICE_NO) {
-			Platform.exit();
-			System.exit(0);
 		}
 	}
-	
-	/*=======Misc Public methods=======*/
-	
+
+	/* =======Misc Public methods======= */
+
 	/**
-	 * Permits to refresh the list view. Useful when doing modifications in other pages.
+	 * Permits to refresh the list view. Useful when doing modifications in other
+	 * pages.
 	 */
 	public void refreshListView() {
 		booksListView.refresh();
 	}
-	
+
 	/**
-	 * Remove a book from the list view (used by BookPageController when deleting book)
+	 * Remove a book from the list view (used by BookPageController when deleting
+	 * book)
+	 * 
 	 * @param book the book to remove from the list (if exists)
 	 */
 	public void removeBookFromListView(Book book) {
 		booksListView.getItems().remove(book);
 	}
 
-	/*=======Misc Private Methods======*/
-	
+	/* =======Misc Private Methods====== */
+
 	private void clearSearchPane() {
-		//remove all books from listview
+		// remove all books from listview
 		booksListView.setItems(null);
 		bookObservableList.clear();
-		//and clear searchbar
+		// and clear searchbar
 		searchBar.setText("");
 	}
 
 	private void addKeywordButton(String keyword) {
 		Button button = new Button(keyword);
-		//add a linstener to this specific button to remove it
+		// add a linstener to this specific button to remove it
 		button.setOnMouseClicked(event -> {
-			if(AlertHelper.showYesNoAlert("Supprimer le mot-clé ?", "Voulez-vous vraiment supprimer le mot clé ?", null)) {
+			if (AlertHelper.showYesNoAlert("Supprimer le mot-clé ?", "Voulez-vous vraiment supprimer le mot clé ?",
+					null)) {
 				keywordsFlowPane.getChildren().remove(button);
 			}
 		});
 		button.getStyleClass().add("keyword-button");
 		keywordsFlowPane.getChildren().add(button);
 	}
-	
+
 	private boolean isBorrowPaneToggled() {
 		return borrowCheckBox.isSelected();
+	}
+
+	private void clearAllSearchFields() {
+		String emptyString = "";
+		titleTextField.setText(emptyString);
+		authorTextField.setText(emptyString);
+		categoriesComboBox.setValue(null);
+		keywordTextField.setText(emptyString);
+		descriptionTextArea.setText(emptyString);
+		borrowCheckBox.setSelected(false);
+		borrowerTextField.setText(emptyString);
+		borrowDatePicker.setValue(null);
+		keywordsFlowPane.getChildren().clear();
 	}
 
 }

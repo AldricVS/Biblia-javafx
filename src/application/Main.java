@@ -1,45 +1,38 @@
 package application;
-	
-import java.io.IOException;
-import java.net.URL;
-import java.util.Optional;
+
+import java.io.FileInputStream;
 
 import application.misc.AppContext;
+import data.Library;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import process.managers.LibraryManager;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-
+import javafx.stage.Stage;
 
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			Library.getInstance();
 			primaryStage.setMinWidth(848f);
 			primaryStage.setMinHeight(480f);
-			final FXMLLoader loader = new FXMLLoader(getClass().getResource("MainPageSample.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("MainPageSample.fxml"));
 			AnchorPane root = (AnchorPane) loader.load();
 			Scene scene = new Scene(root);
 			AppContext.getInstance().setMainStage(primaryStage);
 			primaryStage.setTitle("Bibila");
 			primaryStage.setScene(scene);
+			MainPageController controller = loader.getController();
+			controller.initStage(primaryStage);
 			primaryStage.show();
-		} catch(Exception e) {
+			primaryStage.getIcons().add(new Image(new FileInputStream("@../../Images/mainIcon.png")));
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}

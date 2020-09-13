@@ -26,8 +26,12 @@ public class BookList implements Serializable{
 		return books;
 	}
 	
-	public int getBookListSize() {
+	public int getSize() {
 		return books.size();
+	}
+	
+	public boolean isEmpty() {
+		return books.isEmpty();
 	}
 	
 	/**

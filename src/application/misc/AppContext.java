@@ -8,6 +8,8 @@ public class AppContext {
 	private MainPageController mainController;
 	private Stage mainStage;
 	
+	private boolean isSaveNeeded;
+	
 	/**
 	 * The only one instance of AppContext
 	 */
@@ -48,4 +50,20 @@ public class AppContext {
 	public void setMainStage(Stage mainStage) {
 		this.mainStage = mainStage;
 	}
+
+	/**
+	 * @return the isSaveNeeded
+	 */
+	public boolean isSaveNeeded() {
+		return isSaveNeeded;
+	}
+
+	/**
+	 * @param isSaveNeeded the isSaveNeeded to set
+	 */
+	public void setSaveNeeded(boolean isSaveNeeded) {
+		this.isSaveNeeded = isSaveNeeded;
+	}
+	
+	
 }
