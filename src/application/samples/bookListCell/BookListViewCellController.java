@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.misc.AlertHelper;
 import application.samples.bookPage.BookPageController;
 import data.Book;
 import javafx.fxml.FXML;
@@ -79,7 +80,7 @@ public class BookListViewCellController extends ListCell<Book> implements Initia
 	public void initialize(URL location, ResourceBundle resources) {
 		openButton.setOnAction(event -> {
 			try {
-				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("./../bookPage/bookPage.fxml"));
+				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("bookPage.fxml"));
 				Parent parent = (Parent) fxmlLoader.load();
 				BookPageController bookPageController = fxmlLoader.getController();
 				Stage stage = new Stage();
@@ -88,7 +89,8 @@ public class BookListViewCellController extends ListCell<Book> implements Initia
 				stage.setScene(new Scene(parent));
 				bookPageController.initData(book, stage);
 				stage.show();
-			}catch(IOException e) {
+			}catch(IOException | RuntimeException e) {
+				AlertHelper.showErrorAlert("Erreur !", "erreur lors de l'ouverture du livre", e.getMessage());
 				throw new RuntimeException("Error while loading book window\n" + e);
 			}
 		});
