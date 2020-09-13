@@ -4,12 +4,11 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import application.misc.AlertHelper;
-import application.samples.dialogs.keywordsDialog.KeywordsDialogController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
-import javafx.scene.control.ButtonBar.ButtonData;
 
 public class BorrowDialog extends Dialog<HashMap<Integer, String>> {
 

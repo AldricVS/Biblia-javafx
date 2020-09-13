@@ -1,17 +1,14 @@
 package application.samples.dialogs.keywordsDialog;
 
+import application.misc.AlertHelper;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-
 import javafx.scene.control.TextField;
-import application.misc.AlertHelper;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-
-import javafx.scene.layout.FlowPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.FlowPane;
 
 /**
  * Controller for the keywords list dialog

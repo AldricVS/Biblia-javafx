@@ -1,7 +1,5 @@
 package process.factory;
 
-import java.util.Arrays;
-
 import data.Book;
 import data.Categories;
 

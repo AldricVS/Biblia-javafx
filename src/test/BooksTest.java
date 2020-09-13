@@ -3,13 +3,7 @@
  */
 package test;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import data.Book;
 import data.BookList;
-import data.Categories;
-import process.helpers.FileHelper;
 import process.managers.LibraryManager;
 
 /**

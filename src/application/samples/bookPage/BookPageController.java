@@ -1,9 +1,5 @@
 package application.samples.bookPage;
 
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Optional;
@@ -18,12 +14,12 @@ import application.samples.dialogs.textAreaDialog.TextAreaDialog;
 import data.Book;
 import data.Categories;
 import javafx.event.ActionEvent;
-
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
-import process.factory.BookFactory;
 import process.managers.LibraryManager;
 
 /**
