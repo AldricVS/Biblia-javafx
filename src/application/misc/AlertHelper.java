@@ -166,27 +166,5 @@ public class AlertHelper {
 		}
 		//if nothing is written or nothing has changed, don't change the text returned
 		return oldText;
-	}
-	
-	/**
-	 * Ask to user to replace a text contained in a text area with another one
-	 * @param title the title of the pop-up window
-	 * @param header the header of the pop-up window (it will be dispalyed bigger than content) 
-	 * @param oldText the text to replace
-	 * @return what user wrote, or oldText if nothing is written
-	 */
-	public static String showAreaTextInputDialog(String title, String header, String oldText) {
-		//set the text dialog with the previous text already written
-		Dialog dialog = new Dialog();
-		
-		
-		//get the new text from the user
-		Optional<String> answer = dialog.showAndWait();
-		if(answer.isPresent()) {
-			return answer.get();
-		}
-		//if nothing is written or nothing has changed, don't change the text returned
-		return oldText;
-	}
-	
+	}	
 }
