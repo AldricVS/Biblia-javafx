@@ -101,7 +101,7 @@ public class Book implements Serializable{
 	public String getKeywordsOneLine() {
 		String res = "";
 		int numberKeys = keywords.length - 1;
-		for(int i = 0; i <= numberKeys; i++) {
+		for(int i = 0; i < numberKeys; i++) {
 			res += keywords[i] + ";";
 		}
 		res += keywords[numberKeys];
