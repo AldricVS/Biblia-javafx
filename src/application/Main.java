@@ -27,7 +27,7 @@ public class Main extends Application {
 			MainPageController controller = loader.getController();
 			controller.initStage(primaryStage);
 			primaryStage.show();
-			primaryStage.getIcons().add(new Image(new FileInputStream("@../../Images/mainIcon.png")));
+			primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/resources/images/mainIcon.png")));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

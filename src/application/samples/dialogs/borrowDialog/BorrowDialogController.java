@@ -38,12 +38,19 @@ public class BorrowDialogController {
 		borrowPane.setDisable(!isBorrow);
 		borrowerTextField.setText(borrower);
 		if(isBorrow) {
+			//enable borrow pane and check checkbox
+			borrowPane.setDisable(false);
+			checkBox.setSelected(true);
+			
 			borrowDatePicker.setConverter(new DateStringConverter());
 			//set the date from date string
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 			LocalDate localDate = LocalDate.parse(borrowDate, formatter);
 			borrowDatePicker.setValue(localDate);
 		}else {
+			//idsable borrow pane and uncheck checkbox
+			borrowPane.setDisable(true);
+			checkBox.setSelected(false);
 			borrowDatePicker.setValue(LocalDate.now());
 		}
 	}

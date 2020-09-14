@@ -35,7 +35,7 @@
                                              <graphic>
                                                 <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="img-button">
                                                    <image>
-                                                      <Image url="@../../../../Images/pen.png" />
+                                                      <Image url="/resources/images/pen.png" />
                                                    </image>
                                                 </ImageView>
                                              </graphic>
@@ -72,7 +72,7 @@
                                              <graphic>
                                                 <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="img-button">
                                                    <image>
-                                                      <Image url="@../../../../Images/pen.png" />
+                                                      <Image url="/resources/images/pen.png" />
                                                    </image>
                                                 </ImageView>
                                              </graphic>
@@ -114,7 +114,7 @@
                                        <graphic>
                                           <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="img-button">
                                              <image>
-                                                <Image url="@../../../../Images/pen.png" />
+                                                <Image url="/resources/images/pen.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -154,7 +154,7 @@
                                        <graphic>
                                           <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="img-button">
                                              <image>
-                                                <Image url="@../../../../Images/pen.png" />
+                                                <Image url="/resources/images/pen.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -180,7 +180,7 @@
                                        <graphic>
                                           <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="img-button">
                                              <image>
-                                                <Image url="@../../../../Images/pen.png" />
+                                                <Image url="/resources/images/pen.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -226,7 +226,7 @@
                                        <graphic>
                                           <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="img-button">
                                              <image>
-                                                <Image url="@../../../../Images/pen.png" />
+                                                <Image url="/resources/images/pen.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>

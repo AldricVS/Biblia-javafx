@@ -203,7 +203,9 @@ public class BookPageController implements Initializable {
 		if(AlertHelper.showYesNoAlert("Supprimer ?", "Voulez-vous vraiment supprimer le livre", "Ce choix n'aura de conséquences qu'après avoir sauvegardé.")) {
 			LibraryManager.deleteBook(originalBook);
 			//remove from the observable list on main page too
-			AppContext.getInstance().getMainController().removeBookFromListView(originalBook);
+			AppContext context = AppContext.getInstance();
+			context.getMainController().removeBookFromListView(originalBook);
+			context.setSaveNeeded(true);
 			//and close !
 			stage.close();
 		}

@@ -88,7 +88,7 @@
                                  <graphic>
                                     <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" styleClass="searchButton">
                                        <image>
-                                          <Image url="@../../Images/search.png" />
+                                          <Image url="/resources/images/search.png" />
                                        </image>
                                        <effect>
                                           <Glow />
