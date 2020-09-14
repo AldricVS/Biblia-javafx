@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="bookListAnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="300.0" minWidth="848.0" prefHeight="300.0" prefWidth="848.0" stylesheets="@bookListCellStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="bookListAnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="300.0" minWidth="848.0" prefHeight="300.0" prefWidth="848.0" stylesheets="/resources/style/bookListCellStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="titleLabel" layoutX="15.0" layoutY="33.0" text="Titre" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="33.0">
          <font>

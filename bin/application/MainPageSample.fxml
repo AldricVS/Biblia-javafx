@@ -28,7 +28,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="480.0" minWidth="848.0" prefHeight="680.0" prefWidth="1202.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="480.0" minWidth="848.0" prefHeight="680.0" prefWidth="1202.0" stylesheets="/resources/style/application.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainPageController">
    <children>
       <MenuBar prefHeight="25.0" prefWidth="1200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
@@ -46,10 +46,12 @@
           </Menu>
             <Menu mnemonicParsing="false" text="Aide">
                <items>
-                  <MenuItem mnemonicParsing="false" text="A propos">
+                  <MenuItem mnemonicParsing="false" text="A propos" onAction="#openAboutDialog">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="P" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
+                     <MenuItem mnemonicParsing="false" text="Statistiques" onAction="#openStatsDialog">
+                     </MenuItem>
                </items>
             </Menu>
         </menus>

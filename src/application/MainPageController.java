@@ -10,6 +10,7 @@ import application.misc.AppContext;
 import application.misc.DateStringConverter;
 import application.misc.NoSelectableModel;
 import application.samples.bookListCell.BookListViewCellController;
+import application.samples.bookPage.BookPageController;
 import data.Book;
 import data.BookList;
 import data.Categories;
@@ -19,8 +20,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -38,6 +42,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import process.managers.LibraryManager;
@@ -333,6 +338,38 @@ public class MainPageController implements Initializable {
 				Platform.exit();
 				System.exit(0);
 			}
+		}
+	}
+	
+	@FXML
+	public void openAboutDialog(ActionEvent e) {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("samples/dialogs/aboutDialog/aboutDialog.fxml"));
+		Parent parent;
+		try {
+			parent = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setTitle("À propos");
+			stage.setScene(new Scene(parent));
+			stage.show();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void openStatsDialog(ActionEvent e) {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("samples/dialogs/statsDialog/statsDialog.fxml"));
+		Parent parent;
+		try {
+			parent = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.setTitle("Statistiques");
+			stage.setScene(new Scene(parent));
+			stage.show();
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
 	}
 
