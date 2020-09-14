@@ -1,7 +1,5 @@
 package application;
 
-import java.io.FileInputStream;
-
 import application.misc.AppContext;
 import data.Library;
 import javafx.application.Application;
