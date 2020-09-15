@@ -5,7 +5,11 @@ public enum Categories {
 	ROMAN("Roman"),
 	MAGAZINE("Magazine"),
 	CUISINE("Cuisine"),
-	JARDINAGE("Jardinage");
+	POESIE("Poésie"),
+	JARDINAGE("Jardinage"),
+	THEATRE("Théatre"),
+	LANGUE_ETRANGERE("Langue étrangère"),
+	AUTRE("Autre");
 	
 	private String value;
 	Categories(String value) {
