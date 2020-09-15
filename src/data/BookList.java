@@ -2,6 +2,7 @@ package data;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * List of books obtained generally after a search by user
@@ -51,7 +52,10 @@ public class BookList implements Serializable{
 	public void addBook(Book book) {
 		books.add(book);
 	}
-
+	
+	public void sortByTitle() {
+		books.sort(new TitleComparator());
+	}
 	
 	@Override
 	public String toString() {
@@ -64,7 +68,17 @@ public class BookList implements Serializable{
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
+
+
+	class TitleComparator implements Comparator<Book>{
+
+		@Override
+		public int compare(Book o1, Book o2) {
+			String title1 = o1.getTitle();
+			String title2 = o2.getTitle();
+			return title1.compareTo(title2);
+		}
+		
+	}
 
 }

@@ -95,6 +95,29 @@ public class LibraryManager {
 	}
 	
 	/**
+	 * Retrieve all books in library that the title starts with specified letter
+	 * @param letterSearched the initial to search
+	 * @return all books that title starts with this letter
+	 */
+	public static BookList searchBooksByTitleInitial(char letterSearched) {
+		BookList bookList = new BookList();
+		ArrayList<Book> books = Library.getInstance().getBookList();
+		//for all books, get the first letter and check if this match with letterSearched 
+		for (Book book : books) {
+			String title = book.getTitle().toLowerCase();
+			if(title.length() > 0) {
+				char firstLetter = title.charAt(0);
+				if (firstLetter == letterSearched) {
+					bookList.addBook(book);
+				}
+			}
+		}
+		//we want to have books sorted by title too (it could be a nightmare else)
+		bookList.sortByTitle();
+		return bookList;
+	}
+	
+	/**
 	 * Permits to retrieve all books that are in "borrowed" state from the library
 	 * @return all books borrowed in a bookList
 	 */

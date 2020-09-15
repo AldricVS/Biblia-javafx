@@ -3,6 +3,7 @@ package application;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import application.misc.AlertHelper;
@@ -189,11 +190,9 @@ public class MainPageController implements Initializable {
 		String searchInput = searchBar.getText().trim().replaceAll(" +", " ");
 		if (!searchInput.isEmpty()) {
 
-			bookList = LibraryManager.searchBooks(searchInput);
+			BookList bookList = LibraryManager.searchBooks(searchInput);
 			if (bookList.getSize() > 0) {
-				bookObservableList.clear();
-				bookObservableList.addAll(bookList.getBooks());
-				booksListView.setItems(bookObservableList);
+				refreshSearch(bookList.getBooks());
 			} else {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Pas de livres !");
@@ -203,6 +202,7 @@ public class MainPageController implements Initializable {
 			}
 		}
 	}
+
 
 	@FXML
 	public void listBorrowedBooks(MouseEvent e) {
@@ -214,6 +214,21 @@ public class MainPageController implements Initializable {
 			bookObservableList.clear();
 			bookObservableList.addAll(bookList.getBooks());
 			booksListView.setItems(bookObservableList);
+		}
+	}
+	
+	@FXML
+	public void openTitleInitialSearchDialog(ActionEvent e) {
+		
+		//open comboBox with all letters for the user
+		char answer = AlertHelper.showAlphabetSelectionDialog("Recherche par initiale", "Choisissez une lettre dans la liste", null);
+		if(answer != Character.MIN_VALUE) {
+			BookList bookList = LibraryManager.searchBooksByTitleInitial(answer);
+			if(bookList.isEmpty()) {
+				AlertHelper.showErrorAlert("Pas de livre trouvé", "Aucun livre avec l'initiale " + answer + " n'a été trouvé.", null);
+			}else {
+				refreshSearch(bookList.getBooks());	
+			}
 		}
 	}
 
@@ -394,6 +409,12 @@ public class MainPageController implements Initializable {
 	}
 
 	/* =======Misc Private Methods====== */
+	
+	private void refreshSearch(ArrayList<Book> books) {
+		bookObservableList.clear();
+		bookObservableList.addAll(books);
+		booksListView.setItems(bookObservableList);
+	}
 
 	private void clearSearchPane() {
 		// remove all books from listview
