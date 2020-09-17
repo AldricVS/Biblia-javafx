@@ -82,9 +82,9 @@ public class LibraryManager {
 		// sorting time !
 		Collections.sort(booksFound, new ScoreComparator().reversed());
 
-		// we only want the first 15 elements (if available)
+		// we only want the first 100 elements (if available)
 		BookList bookList = new BookList();
-		for (int i = 0; i < 15; i++) {
+		for (int i = 0; i < 100; i++) {
 			if (i < booksFound.size()) {
 				bookList.addBook(booksFound.get(i));
 			} else {
