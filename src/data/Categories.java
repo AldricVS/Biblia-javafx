@@ -1,14 +1,16 @@
 package data;
 
 public enum Categories {
+	CUISINE("Cuisine"),
+	EDUCATION("Éducation"),
+	HISTOIRE("Histoire"),
 	NATUROPATHIE("Naturopathie"),
 	ROMAN("Roman"),
 	MAGAZINE("Magazine"),
-	CUISINE("Cuisine"),
+	LANGUE_ETRANGERE("Langue étrangère"),
 	POESIE("Poésie"),
 	JARDINAGE("Jardinage"),
 	THEATRE("Théatre"),
-	LANGUE_ETRANGERE("Langue étrangère"),
 	AUTRE("Autre");
 	
 	private String value;
